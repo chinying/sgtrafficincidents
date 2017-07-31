@@ -71,7 +71,7 @@ func Respond(c *gin.Context) {
         break
       }
 
-      locations = append(tempData.Value)
+      locations = append(locations, tempData.Value...)
       skipcount += 50
     }
 
