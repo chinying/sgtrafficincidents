@@ -1,2 +1,6 @@
 .env
 app
+bower_components
+.sass-cache
+*.map
+*.css

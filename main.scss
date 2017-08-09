@@ -1,0 +1,28 @@
+$button-size: 1.5em;
+$button-offset: 50px;
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html, body, #mapid {
+  height: 100vh;
+  width: 100vw;
+}
+
+#help_content {
+  display: none;
+}
+
+#help_icon {
+  font-size: 2em;
+  position: fixed;
+  right: $button-offset;
+  bottom: $button-offset;
+  height: $button-size;
+  width: $button-size;
+  border: none;
+  border-radius: 50%;
+  z-index: 9999;
+}
