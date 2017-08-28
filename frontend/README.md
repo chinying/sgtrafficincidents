@@ -1,4 +1,4 @@
-# traf
+# SG Traffic Incidents Map
 
 > A Vue.js project
 
