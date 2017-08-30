@@ -20,9 +20,9 @@ import Vue2Leaflet from 'vue2-leaflet';
   icon settings taken from https://github.com/Leaflet/Leaflet/blob/3fae3befd33da47ec6061c861c74ca9538ec9273/src/layer/marker/Icon.Default.js
 */
 const customIcon = L.icon({
-  iconUrl: '../node_modules/leaflet/dist/images/marker-icon.png',
-  iconRetinaUrl: '../node_modules/leaflet/dist/images/marker-icon-2x.png',
-  shadowUrl: '../node_modules/leaflet/dist/images/marker-shadow.png',
+  iconUrl: './dist/marker-icon.png',
+  iconRetinaUrl: './dist/marker-icon-2x.png',
+  shadowUrl: './dist/marker-shadow.png',
   iconSize:    [25, 41],
   iconAnchor:  [12, 41],
   popupAnchor: [1, -34],
