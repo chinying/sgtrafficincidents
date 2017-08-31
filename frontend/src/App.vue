@@ -7,11 +7,25 @@
           <v-popup :content="item.message"></v-popup>
         </v-marker>
       </v-map>
+      <button id="modal_button" @click="show(false, false, false)">List view</button>
+      <modal name="hello-world"
+         :width="300"
+         height="auto"
+         :scrollable="true"
+         @before-open="beforeOpen"
+         @before-close="beforeClose">
+        <div slot="top-right">
+        </div>
+        <div v-for="item in markers">
+          <p> {{item.message}} </p>
+        </div>
+      </modal>
     </div>
   </div>
 </template>
 
 <script>
+
 import Vue2Leaflet from 'vue2-leaflet';
 // import Glyph from 'leaflet.icon.glyph';
 
@@ -20,9 +34,12 @@ import Vue2Leaflet from 'vue2-leaflet';
   icon settings taken from https://github.com/Leaflet/Leaflet/blob/3fae3befd33da47ec6061c861c74ca9538ec9273/src/layer/marker/Icon.Default.js
 */
 const customIcon = L.icon({
-  iconUrl: './dist/marker-icon.png',
-  iconRetinaUrl: './dist/marker-icon-2x.png',
-  shadowUrl: './dist/marker-shadow.png',
+  // iconUrl: './marker-icon.png',
+  // iconRetinaUrl: './marker-icon-2x.png',
+  // shadowUrl: './marker-shadow.png',
+  iconUrl: '../node_modules/leaflet/dist/images/marker-icon.png',
+  iconRetinaUrl: '../node_modules/leaflet/dist/images/marker-icon-2x.png',
+  shadowUrl: '../node_modules/leaflet/dist/images/marker-shadow.png',
   iconSize:    [25, 41],
   iconAnchor:  [12, 41],
   popupAnchor: [1, -34],
@@ -70,6 +87,24 @@ export default {
       }).catch(function(err) {
         console.log(err)
       });
+    },
+    beforeOpen (event) {
+      console.log(event)
+      // Set the opening time of the modal
+      this.time = Date.now()
+    },
+    beforeClose (event) {
+      console.log(event)
+      // If modal was open less then 5000 ms - prevent closing it
+      if (this.time + this.duration < Date.now()) {
+        event.stop()
+      }
+    },
+    show () {
+      this.$modal.show('hello-world');
+    },
+    hide () {
+      this.$modal.hide('hello-world');
     }
   },
   mounted() {
@@ -80,6 +115,8 @@ export default {
 
 <style lang="scss">
 @import '../node_modules/leaflet/dist/leaflet.css';
+
+$button_offset: 5%;
 
 #app {
   width: 100%;
@@ -97,4 +134,16 @@ html,
 body {
   height: 100%;
 }
+
+#modal_button {
+  position: fixed;
+  top: $button_offset;
+  right: $button_offset;
+  z-index: 9999;
+}
+
+.hello-world {
+  top: 20%;
+}
+
 </style>
