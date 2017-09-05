@@ -7,18 +7,21 @@
           <v-popup :content="item.message"></v-popup>
         </v-marker>
       </v-map>
-      <button id="modal_button" @click="show(false, false, false)">List view</button>
+      <button id="modal_button" @click="show('hello-world')">List view</button>
       <modal name="hello-world"
-         :width="300"
+         :width="500"
          height="auto"
          :scrollable="true"
          @before-open="beforeOpen"
-         @before-close="beforeClose">
+         @before-close="beforeClose"
+         id ="list-events">
         <div slot="top-right">
         </div>
-        <div v-for="item in markers">
-          <p> {{item.message}} </p>
-        </div>
+        <table>
+        <tr v-for="item in markers">
+          <td> {{item.message}} </td>
+        </tr>
+        </table>
       </modal>
     </div>
   </div>
@@ -62,7 +65,8 @@ export default {
       marker: L.latLng(1.3521, 103.8198),
       minZoom: 8,
       maxZoom: 15,
-      url: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', // .fr tileset seems to load faster
+      // url: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', // .fr tileset seems to load faster
+      url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution: 'vue2-leaflet',
       title: 'traffic incidents in sg',
       opacity: 1,
@@ -100,11 +104,11 @@ export default {
         event.stop()
       }
     },
-    show () {
-      this.$modal.show('hello-world');
+    show (el) {
+      this.$modal.show(el);
     },
-    hide () {
-      this.$modal.hide('hello-world');
+    hide (el) {
+      this.$modal.hide(el);
     }
   },
   mounted() {
@@ -144,6 +148,10 @@ body {
 
 .hello-world {
   top: 20%;
+}
+
+.v--modal-box {
+  top: 200px !important;
 }
 
 </style>
