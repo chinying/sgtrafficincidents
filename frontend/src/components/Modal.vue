@@ -84,11 +84,8 @@ export default {
 
 .modal-body {
   margin: 20px 0;
-  overflow: scroll !important;
-}
-
-.modal-default-button {
-  float: right;
+  max-height: 800px;
+  overflow-y: auto;
 }
 
 /*
