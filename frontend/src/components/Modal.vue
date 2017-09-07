@@ -84,7 +84,7 @@ export default {
 
 .modal-body {
   margin: 20px 0;
-  max-height: 800px;
+  max-height: 50vh;
   overflow-y: auto;
 }
 
