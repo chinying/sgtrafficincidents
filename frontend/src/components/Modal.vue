@@ -3,7 +3,7 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper" @click="$emit('close')">
-        <div class="modal-container">
+        <div class="modal-container" @click.stop>
 
           <div class="modal-header">
             <slot name="header">
@@ -59,7 +59,6 @@ export default {
   background-color: rgba(0, 0, 0, .5);
   display: table;
   transition: opacity .3s ease;
-  overflow: scroll;
 }
 
 .modal-wrapper {
