@@ -7,21 +7,11 @@
           <v-popup :content="item.message"></v-popup>
         </v-marker>
       </v-map>
-      <button id="modal_button" @click="show('hello-world')">List view</button>
+      <button id="modal_button" @click="showModal = true">List view</button>
       <modal name="hello-world"
-         :width="500"
-         height="auto"
-         :scrollable="true"
-         @before-open="beforeOpen"
-         @before-close="beforeClose"
-         id ="list-events">
-        <div slot="top-right">
-        </div>
-        <table>
-        <tr v-for="item in markers">
-          <td> {{item.message}} </td>
-        </tr>
-        </table>
+        v-if="showModal" @close="showModal = false"
+        id ="list-events"
+        v-bind:markers="markers">
       </modal>
     </div>
   </div>
@@ -31,6 +21,7 @@
 
 import Vue2Leaflet from 'vue2-leaflet';
 // import Glyph from 'leaflet.icon.glyph';
+import Modal from './components/Modal.vue';
 
 /*
   somehow the shadow wasn't rendering from default settings
@@ -56,7 +47,8 @@ export default {
     'v-map': Vue2Leaflet.Map,
     'v-tilelayer' :Vue2Leaflet.TileLayer,
     'v-marker': Vue2Leaflet.Marker,
-    'v-popup': Vue2Leaflet.Popup
+    'v-popup': Vue2Leaflet.Popup,
+    'modal': Modal
   },
   data () {
     return {
@@ -72,7 +64,8 @@ export default {
       opacity: 1,
       draggable: true,
       attributionControl: false,
-      markers: []
+      markers: [],
+      showModal: false
     }
   },
   methods: {
@@ -91,24 +84,6 @@ export default {
       }).catch(function(err) {
         console.log(err)
       });
-    },
-    beforeOpen (event) {
-      console.log(event)
-      // Set the opening time of the modal
-      this.time = Date.now()
-    },
-    beforeClose (event) {
-      console.log(event)
-      // If modal was open less then 5000 ms - prevent closing it
-      if (this.time + this.duration < Date.now()) {
-        event.stop()
-      }
-    },
-    show (el) {
-      this.$modal.show(el);
-    },
-    hide (el) {
-      this.$modal.hide(el);
     }
   },
   mounted() {
@@ -123,20 +98,20 @@ export default {
 $button_offset: 5%;
 
 #app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
 }
-#map,
-#next {
+
+html, body, #map, #next {
   height: 100%;
 }
 body {
   padding: 0;
   margin: 0;
-}
-html,
-body {
-  height: 100%;
 }
 
 #modal_button {
@@ -144,14 +119,6 @@ body {
   top: $button_offset;
   right: $button_offset;
   z-index: 9999;
-}
-
-.hello-world {
-  top: 20%;
-}
-
-.v--modal-box {
-  top: 200px !important;
 }
 
 </style>
