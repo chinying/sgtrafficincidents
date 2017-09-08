@@ -11,7 +11,7 @@
       <modal name="hello-world"
         v-if="showModal" @close="showModal = false"
         id ="list-events"
-        v-bind:markers="markers">
+        v-bind:markers="markers | roadworks">
       </modal>
     </div>
   </div>
@@ -68,6 +68,14 @@ export default {
       showModal: false
     }
   },
+  filters: {
+    roadworks: function(data) {
+      console.log("called", data)
+      if (!data) return [];
+      const filtered = data.filter((d) => d.incidentType == "Roadwork");
+      return filtered;
+    }
+  },
   methods: {
     getTrafficInfo: function() {
       var request = new Request('http://localhost:8001/traffic', {
@@ -79,7 +87,7 @@ export default {
         return response.json()
       }).then(function(parsed) {
         parsed.trafficStatus["value"].forEach((e) => {
-          _this.$data.markers.push({latlng: L.latLng(e.Latitude, e.Longitude), message: e.Message, icon: customIcon})
+          _this.$data.markers.push({latlng: L.latLng(e.Latitude, e.Longitude), message: e.Message, incidentType: e.Type, icon: customIcon})
         })
       }).catch(function(err) {
         console.log(err)
