@@ -9,7 +9,7 @@
             <slot name="header">
               {{modal_header}}
             </slot>
-            <li v-for="incidentType in incidentTypes">
+            <li v-for="incidentType in incidentTypes" class="filter-list-items">
               <input type="checkbox" v-model="checkedComponents" v-bind:value="incidentType" @click="reportComponents()" /> {{ incidentType }}
             </li>
           </div>
@@ -124,6 +124,11 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+/* custom */
+.filter-list-items {
+  list-style-type: none;
 }
 
 </style>
