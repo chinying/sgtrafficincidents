@@ -10,3 +10,7 @@ compilation instructions
 - some sidebar with incidents as list form
 - make use of location info
     - ask user for location, use some js equivalent of vincenty, zoom in on area nearby?
+- I will revisit this project in the future when I get better at vue / frontend in general
+
+- this issue [https://github.com/Leaflet/Leaflet/issues/4968] is causing icons to not load, need time to go read through and fix, meanwhile icons just have to be manually copied
+ on build
