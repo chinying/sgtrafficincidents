@@ -49,7 +49,7 @@ export default {
       modal_header: "hi",
       modal_footer: "footer",
       incidentTypes: ["Vehicle breakdown", "Roadwork", "Accident", "Heavy Traffic", "Roadblock"],
-      checkedComponents: []
+      checkedComponents: ["Vehicle breakdown", "Roadwork", "Accident", "Heavy Traffic", "Roadblock"]
     }
   },
   methods: {
