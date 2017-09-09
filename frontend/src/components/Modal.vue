@@ -9,6 +9,9 @@
             <slot name="header">
               {{modal_header}}
             </slot>
+            <li v-for="incidentType in incidentTypes">
+              <input type="checkbox" v-model="checkedComponents" v-bind:value="incidentType" @click="reportComponents()" /> {{ incidentType }}
+            </li>
           </div>
 
           <div class="modal-body">
@@ -36,13 +39,24 @@
 </template>
 
 <script>
+import { EventBus } from '../eventbus.js';
+
 export default {
   name: 'modal',
   props: ['markers'],
   data() {
     return {
       modal_header: "hi",
-      modal_footer: "footer"
+      modal_footer: "footer",
+      incidentTypes: ["Vehicle breakdown", "Roadwork", "Accident", "Heavy Traffic", "Roadblock"],
+      checkedComponents: []
+    }
+  },
+  methods: {
+    reportComponents: function() {
+      console.log(this.$data.checkedComponents)
+      const checkedComponents = this.$data.checkedComponents
+      EventBus.$emit('filter-category', checkedComponents);
     }
   }
 }
@@ -85,6 +99,7 @@ export default {
 .modal-body {
   margin: 20px 0;
   max-height: 50vh;
+  height: 50vh;
   overflow-y: auto;
 }
 

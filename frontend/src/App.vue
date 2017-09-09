@@ -3,7 +3,7 @@
     <div id="top_div" style="height: 100%">
       <v-map :zoom="zoom" :center="center">
         <v-tilelayer :url="url" :attribution="attribution"></v-tilelayer>
-         <v-marker v-for="item in markers" :key="item.id" :lat-lng="item.latlng" :icon="item.icon">
+         <v-marker v-for="item in filteredIncidents" :key="item.id" :lat-lng="item.latlng" :icon="item.icon">
           <v-popup :content="item.message"></v-popup>
         </v-marker>
       </v-map>
@@ -11,7 +11,7 @@
       <modal name="hello-world"
         v-if="showModal" @close="showModal = false"
         id ="list-events"
-        v-bind:markers="markers | roadworks">
+        v-bind:markers="filteredIncidents">
       </modal>
     </div>
   </div>
@@ -22,6 +22,7 @@
 import Vue2Leaflet from 'vue2-leaflet';
 // import Glyph from 'leaflet.icon.glyph';
 import Modal from './components/Modal.vue';
+import { EventBus } from './eventbus.js';
 
 /*
   somehow the shadow wasn't rendering from default settings
@@ -45,7 +46,7 @@ export default {
   name: 'example',
   components: {
     'v-map': Vue2Leaflet.Map,
-    'v-tilelayer' :Vue2Leaflet.TileLayer,
+    'v-tilelayer': Vue2Leaflet.TileLayer,
     'v-marker': Vue2Leaflet.Marker,
     'v-popup': Vue2Leaflet.Popup,
     'modal': Modal
@@ -65,14 +66,16 @@ export default {
       draggable: true,
       attributionControl: false,
       markers: [],
-      showModal: false
+      showModal: false,
+      checkedIncidentTypes: ["Vehicle breakdown", "Roadwork", "Accident", "Heavy Traffic", "Roadblock"]
     }
   },
-  filters: {
-    roadworks: function(data) {
-      console.log("called", data)
+  computed: {
+    filteredIncidents: function() {
+      const data = this.$data.markers;
+      var _this = this;
       if (!data) return [];
-      const filtered = data.filter((d) => d.incidentType == "Roadwork");
+      const filtered = data.filter((d) => _this.$data.checkedIncidentTypes.includes(d.incidentType));
       return filtered;
     }
   },
@@ -92,10 +95,17 @@ export default {
       }).catch(function(err) {
         console.log(err)
       });
+    },
+    updateFilterCategories: function(val) {
+      this.$data.checkedIncidentTypes = val
     }
   },
   mounted() {
+    var _this = this
     this.getTrafficInfo()
+    EventBus.$on('filter-category', function (payLoad) {
+      _this.updateFilterCategories(payLoad)
+    });
   }
 }
 </script>
