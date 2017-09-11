@@ -43,13 +43,13 @@ import { EventBus } from '../eventbus.js';
 
 export default {
   name: 'modal',
-  props: ['markers'],
+  props: ['markers', 'checked'],
   data() {
     return {
       modal_header: "hi",
       modal_footer: "footer",
-      incidentTypes: ["Vehicle breakdown", "Roadwork", "Accident", "Heavy Traffic", "Roadblock"],
-      checkedComponents: ["Vehicle breakdown", "Roadwork", "Accident", "Heavy Traffic", "Roadblock"]
+      incidentTypes: ["Vehicle breakdown", "Roadwork", "Accident", "Heavy Traffic", "Road Block"],
+      checkedComponents: this.$props.checked
     }
   },
   methods: {

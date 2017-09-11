@@ -11,7 +11,8 @@
       <modal name="hello-world"
         v-if="showModal" @close="showModal = false"
         id ="list-events"
-        v-bind:markers="filteredIncidents">
+        v-bind:markers="filteredIncidents"
+        v-bind:checked="checkedIncidentTypes">
       </modal>
     </div>
   </div>
@@ -67,7 +68,7 @@ export default {
       attributionControl: false,
       markers: [],
       showModal: false,
-      checkedIncidentTypes: ["Vehicle breakdown", "Roadwork", "Accident", "Heavy Traffic", "Roadblock"]
+      checkedIncidentTypes: ["Vehicle breakdown", "Roadwork", "Accident", "Heavy Traffic", "Road Block"]
     }
   },
   computed: {
