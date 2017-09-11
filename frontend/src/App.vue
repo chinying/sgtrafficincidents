@@ -7,7 +7,7 @@
           <v-popup :content="item.message"></v-popup>
         </v-marker>
       </v-map>
-      <button id="modal_button" @click="showModal = true">List view</button>
+      <button id="modal_button" @click="showModal = true">Filter</button>
       <modal name="hello-world"
         v-if="showModal" @close="showModal = false"
         id ="list-events"
@@ -138,6 +138,20 @@ body {
   top: $button_offset;
   right: $button_offset;
   z-index: 9999;
+  padding: 10px 20px;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid #ED926B;
+  color: #fff;
+  background: #E66855;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: ease .5s;
+  border-radius: 5px;
+  &:hover {
+    background: #FF3636;
+  }
 }
 
 </style>

@@ -27,9 +27,8 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              {{modal_footer}}
               <button class="modal-default-button" @click="$emit('close')">
-                OK
+                Close
               </button>
             </slot>
           </div>
@@ -47,7 +46,7 @@ export default {
   props: ['markers', 'checked'],
   data() {
     return {
-      modal_header: "hi",
+      modal_header: "Filter by",
       modal_footer: "footer",
       incidentTypes: ["Vehicle breakdown", "Roadwork", "Accident", "Heavy Traffic", "Road Block"],
       checkedComponents: this.$props.checked
@@ -55,7 +54,6 @@ export default {
   },
   methods: {
     reportComponents: function() {
-      console.log(this.$data.checkedComponents)
       const checkedComponents = this.$data.checkedComponents
       EventBus.$emit('filter-category', checkedComponents);
     }
@@ -63,7 +61,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.modal-inner-component {
+  padding: 10px 30px;
+}
+
+.modal-header, .modal-footer, .modal-body {
+  @extend .modal-inner-component;
+}
+
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -84,7 +90,6 @@ export default {
 .modal-container {
   width: 600px;
   margin: 0px auto;
-  padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
@@ -92,9 +97,12 @@ export default {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
+.modal-header {
+  h3 {
+    margin-top: 0;
+    color: #42b983;
+  }
+  background: #eee;
 }
 
 .modal-body {
@@ -131,6 +139,32 @@ export default {
 .filter-list-items {
   list-style-type: none;
   display: inline;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.modal-default-button {
+  padding: 10px 20px;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  color: #222;
+  background: #2ECC71;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: ease .5s;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: .75em;
+  &:hover {
+    background: #296F61;
+    color: #FFF;
+  }
 }
 
 </style>
