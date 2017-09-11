@@ -9,6 +9,7 @@
             <slot name="header">
               {{modal_header}}
             </slot>
+            <br />
             <li v-for="incidentType in incidentTypes" class="filter-list-items">
               <input type="checkbox" v-model="checkedComponents" v-bind:value="incidentType" @click="reportComponents()" /> {{ incidentType }}
             </li>
@@ -81,7 +82,7 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 600px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -129,6 +130,7 @@ export default {
 /* custom */
 .filter-list-items {
   list-style-type: none;
+  display: inline;
 }
 
 </style>
