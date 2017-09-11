@@ -137,7 +137,7 @@ body {
   position: fixed;
   top: $button_offset;
   right: $button_offset;
-  z-index: 9999;
+  z-index: 9997;
   padding: 10px 20px;
   display: inline-block;
   text-transform: uppercase;
