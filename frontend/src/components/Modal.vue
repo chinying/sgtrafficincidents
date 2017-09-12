@@ -62,6 +62,12 @@ export default {
 </script>
 
 <style lang="scss">
+// apparently sass throws compilation error if you have brackets in variables?
+$iphone: "min-width : 320px";
+$phone: "min-width : 480px";
+$tablet: "min-width: 768px";
+$desktop: "min-width: 1024px";
+
 .modal-inner-component {
   padding: 10px 30px;
 }
@@ -88,7 +94,7 @@ export default {
 }
 
 .modal-container {
-  width: 600px;
+  width: 60vw;
   margin: 0px auto;
   background-color: #fff;
   border-radius: 2px;
@@ -138,7 +144,10 @@ export default {
 /* custom */
 .filter-list-items {
   list-style-type: none;
-  display: inline;
+  display: list-item;
+  @media screen and ($phone) {
+    display: inline;
+  }
 }
 
 .modal-footer {
